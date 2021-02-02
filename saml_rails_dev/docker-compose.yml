@@ -1,0 +1,26 @@
+version: "3"
+services:
+  pg:
+    image: postgres:12
+    ports:
+      - "5432"
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+  appland:
+    build:
+      context: ../
+      dockerfile: appland_dev/Dockerfile.dev
+    image: appland-dev
+    environment:
+      DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: "true"
+      DATABASE_URL: postgres://postgres@pg/postgres?searchpath=appland,public
+      RAILS_ENV:
+      WEBPACKER_NODE_MODULES_BIN_PATH: /src/appland/node_modules/.bin
+    ports:
+      - "3000"
+    volumes:
+    - ..:/src/appland
+    - ~/.gitconfig:/etc/gitconfig
+    links:
+    - pg:pg
