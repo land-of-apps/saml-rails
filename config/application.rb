@@ -1,6 +1,7 @@
 require_relative "boot"
 
 require "rails/all"
+require 'appmap/railtie' if defined?(AppMap)
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -11,6 +12,7 @@ module RailsSaml
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
+    config.appmap.enabled = true if ENV['APPMAP_RECORD'] == 'true'
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

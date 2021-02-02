@@ -1,0 +1,8 @@
+name: saml-rails
+packages:
+- path: app/models
+- path: app/controllers
+- gem: ruby-saml
+  shallow: false
+- gem: devise
+- gem: actionpack
